@@ -1,0 +1,12 @@
+<?xml version="1.0"?> 
+<info>
+	<id>files_rootjs</id>
+	<name>CERNBox ROOTJS</name>
+	<description>This application integrates the ROOTJS framework into CERNBox files application</description>
+	<licence>AGPL</licence>
+	<author>Hugo Gonzalez Labrador</author>
+	<require>8.0.2</require>
+	<shipped>true</shipped>
+	<default_enable/>
+	<ocsid>166052</ocsid>
+</info>

@@ -1,0 +1,25 @@
+#files_rootjs_container #simpleGUI {
+	position: relative;
+	display: block;
+	top: 0;
+	left: 0;
+	z-index: 20;
+	height: 100%;
+	width: 100%;
+}
+
+#files_rootjs_container{
+	position: absolute;
+	display: block;
+	top: 0;
+	left: 0;
+	padding-top: 44px;
+	height: 100%;
+	width: 100%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+#simpleGUI_close {
+	float: right;
+	margin-right: 9px;
+}
