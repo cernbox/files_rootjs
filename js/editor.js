@@ -1,4 +1,4 @@
-function showControls(dir, filename, writeable) {
+function rootjsShowControls(dir, filename, writeable) {
 	// Loads the control bar at the top.
 	OC.Breadcrumb.show(dir, filename, '#');
 	// Load the new toolbar.
@@ -13,17 +13,17 @@ function showControls(dir, filename, writeable) {
 	}
 }
 
-function bindControlEvents() {
-	$('#content').on('click', '#simpleGUI_close', hideFileEditor);
+function rootjsBindControlEvents() {
+	$('#content').on('click', '#simpleGUI_close', rootjsHideFileEditor);
 }
 
 // returns true or false if the editor is in view or not
-function editorIsShown() {
+function rootjsEditorIsShown() {
 	return is_editor_shown;
 }
 
 // Fades out the editor.
-function hideFileEditor() {
+function rootjsHideFileEditor() {
 	// TODO: handle the case when we close it in a public share. As Kuba pointed, it redirects to index.php instead to the current share
 	$('#fileList').off('changeDirectory.texteditor');
 	if (window.FileList){
@@ -39,15 +39,15 @@ function hideFileEditor() {
 	$('#content table').show();
 	is_editor_shown = false;
 }
-function textEditorOnChangeDirectory(ev){
+function rootjstextEditorOnChangeDirectory(ev){
 	// if the directory is changed, it is usually due to browser back
 	// navigation. In this case, simply close the editor
-	hideFileEditor();
+	rootjsHideFileEditor();
 }
 
 // Loads the file editor. Accepts two parameters, dir and filename.
-function showFileEditor(dir, filename) {
-		if (!editorIsShown()) {
+function rootjsShowFileEditor(dir, filename) {
+		if (!rootjsEditorIsShown()) {
 			is_editor_shown = true;
 			// Delete any old editors
 			if ($('#notification').data('reopeneditor')) {
@@ -64,10 +64,10 @@ function showFileEditor(dir, filename) {
 			// Initialise the editor
 			if (window.FileList){
 				FileList.setViewerMode(true);
-				$('#fileList').on('changeDirectory.texteditor', textEditorOnChangeDirectory);
+				$('#fileList').on('changeDirectory.texteditor', rootjstextEditorOnChangeDirectory);
 			}
 			// Show the control bar
-			showControls(dir, filename, false);
+			rootjsShowControls(dir, filename, false);
 			// Update document title
 			$('body').attr('old_title', document.title);
 			document.title = filename + ' - ownCloud';
@@ -81,9 +81,9 @@ $(document).ready(function () {
 	if (typeof FileActions !== 'undefined') {
 		FileActions.setDefault('application/x-root', 'Edit');
                 OCA.Files.fileActions.register('application/x-root', 'Edit', OC.PERMISSION_READ, '', function (filename) {
-                        showFileEditor($('#dir').val(), filename);
+                        rootjsShowFileEditor($('#dir').val(), filename);
                 });
-		bindControlEvents();
+		rootjsBindControlEvents();
 	}
 	
 });
