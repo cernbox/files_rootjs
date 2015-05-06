@@ -24,7 +24,7 @@ function editorIsShown() {
 
 // Fades out the editor.
 function hideFileEditor() {
-	console.debug("closing editor");
+	// TODO: handle the case when we close it in a public share. As Kuba pointed, it redirects to index.php instead to the current share
 	$('#fileList').off('changeDirectory.texteditor');
 	if (window.FileList){
 		// reload the directory content with the updated file size + thumbnail
@@ -57,6 +57,10 @@ function showFileEditor(dir, filename) {
 			// Loads the file editor and display it.
 			$('#content').append('<div id="files_rootjs_container"><div id="simpleGUI"></div></div>');
 			$('#simpleGUI').attr('files', 'https://testbox.cern.ch/index.php/apps/files/ajax/download.php?dir=' + dir + '&files=' + filename);
+			if ($('#isPublic').val()){
+				$('#simpleGUI').attr('files', 'https://testbox.cern.ch/index.php/s/CmHxPkf1a2aw87E/download?path=' + dir + '&files=' + filename);
+		        }
+
 			// Initialise the editor
 			if (window.FileList){
 				FileList.setViewerMode(true);
@@ -74,10 +78,6 @@ function showFileEditor(dir, filename) {
 
 var is_editor_shown = false;
 $(document).ready(function () {
-	if ($('#isPublic').val()){
-		// disable editor in public mode (not supported yet)
-		return;
-	}
 	if (typeof FileActions !== 'undefined') {
 		FileActions.setDefault('application/x-root', 'Edit');
                 OCA.Files.fileActions.register('application/x-root', 'Edit', OC.PERMISSION_READ, '', function (filename) {
