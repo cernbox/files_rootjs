@@ -56,10 +56,11 @@ function rootjsShowFileEditor(dir, filename) {
 			$('#simpleGUI').remove();
 			// Loads the file editor and display it.
 			$('#content').append('<div id="files_rootjs_container"><div id="simpleGUI"></div></div>');
-			$('#simpleGUI').attr('files', 'https://testbox.cern.ch/index.php/apps/files/ajax/download.php?dir=' + dir + '&files=' + filename);
+			var fileURL = fileDownloadPath(dir, filename);
 			if ($('#isPublic').val()){
-				$('#simpleGUI').attr('files', 'https://testbox.cern.ch/index.php/s/CmHxPkf1a2aw87E/download?path=' + dir + '&files=' + filename);
-		        }
+				fileURL = window.location.pathname + '/download?path=' + dir + '&files=' + filename;
+			}
+			$('#simpleGUI').attr('files', fileURL);
 
 			// Initialise the editor
 			if (window.FileList){
@@ -73,6 +74,40 @@ function rootjsShowFileEditor(dir, filename) {
 			document.title = filename + ' - ownCloud';
 			JSROOT.source_dir = "https://testbox.cern.ch/apps/files_rootjs/js/";
 			BuildSimpleGUI();
+
+			// Adapt interface to make it simple
+			$("#simpleGUI #urlToLoad").val(fileURL);
+			$("#simpleGUI #urlToLoad").hide();
+			$("#simpleGUI select[name='s']").hide();
+			
+			var layout = $("#simpleGUI #layout");
+			var loadButton = $("#simpleGUI input[value='Load']");
+			var resetButton = $("#simpleGUI input[value='Reset']");
+			var buttonGroup = loadButton.parent();
+			var form = $("simpleGUI form");
+			var banner = "<p style='position:absolute; bottom: 0px;'>This viewer is part of <a href='https://root.cern.ch/drupal/'>ROOT project</a> at CERN</p>";
+			var left = $("#simpleGUI #left-div");
+			var right = $("#simpleGUI #right-div");
+				
+			left.append(banner);
+			loadButton.hide();
+			resetButton.hide();
+			loadButton.click();
+			layout.attr("style", "");
+			$("#simpleGUI #left-div>h1").hide();
+			$("#simpleGUI #left-div>p").hide();
+			$("#simpleGUI #left-div form>p").hide();
+			left.append(banner);
+			left.css({border:"0px", "background-color":"white"});
+			right.css({border:"0px", "background-color":"white"});
+
+			var reloadButton = $('<input type="button" id="reload" value="Reload with selected layout">');
+			buttonGroup.append(reloadButton);
+			reloadButton.on('click', function(e) {
+				resetButton.click();
+				loadButton.click()
+			});			
+
 		}
 }
 
