@@ -85,7 +85,7 @@ function rootjsShowFileEditor(dir, filename) {
 			var resetButton = $("#simpleGUI input[value='Reset']");
 			var buttonGroup = loadButton.parent();
 			var form = $("simpleGUI form");
-			var banner = "<p style='position:absolute; bottom: 0px;'>This viewer, based on the ROOT data analysis framework developed at CERN, has been integrated by the CERNBOX team</p>";
+			var banner = "<p style='position:absolute; bottom: 0px;'>This viewer, based on the <a href='http://root.cern.ch'><b>ROOT</b></a> data analysis framework developed at CERN, has been integrated by the <a href='https://cernbox.cern.ch'><b>CERNBOX</b></a> team</p>";
 			var left = $("#simpleGUI #left-div");
 			var right = $("#simpleGUI #right-div");
 				
