@@ -72,7 +72,7 @@ function rootjsShowFileEditor(dir, filename) {
 			// Update document title
 			$('body').attr('old_title', document.title);
 			document.title = filename + ' - ownCloud';
-			JSROOT.source_dir = "https://testbox.cern.ch/apps/files_rootjs/js/";
+			JSROOT.source_dir = window.location.origin + window.oc_webroot + "/apps/files_rootjs/js/";
 			BuildSimpleGUI();
 
 			// Adapt interface to make it simple
