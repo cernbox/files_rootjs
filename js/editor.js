@@ -200,7 +200,7 @@ $(document).ready(function () {
 	if (typeof FileActions !== 'undefined') {
 		FileActions.setDefault('application/x-root', 'Edit');
                 OCA.Files.fileActions.register('application/x-root', 'Edit', OC.PERMISSION_READ, '', function (filename) {
-                        rootjsShowFileEditor($('#dir').val(), filename);
+                        rootjsShowFileEditor(FileList.getCurrentDirectory(), filename);
                 });
 		rootjsBindControlEvents();
 	}
