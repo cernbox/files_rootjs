@@ -5,7 +5,7 @@
 	<description>This application integrates the ROOTJS framework into CERNBox files application</description>
 	<licence>AGPL</licence>
 	<author>Hugo Gonzalez Labrador</author>
-	<require>8.0.2</require>
+	<require>7.0.1</require>
 	<shipped>true</shipped>
 	<default_enable/>
 	<ocsid>166052</ocsid>
