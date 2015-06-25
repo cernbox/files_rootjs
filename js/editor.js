@@ -62,6 +62,9 @@ function rootjsShowFileEditor(dir, filename) {
 
 				$('#content').append('<div id="files_rootjs_container"><div id="simpleGUI"></div></div>');
 				var fileURL = window.location.pathname + '/download?path=' + dir + '&files=' + filename;
+				if(window.OC.config.versionstring.indexOf("7") === 0) {
+                                	fileURL = window.location.pathname + window.location.search + '&path=' + dir + '&files=' + filename + "&download";
+	                        }
 				$('#simpleGUI').attr('files', fileURL);
 
 				// Initialise the editor
