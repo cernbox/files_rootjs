@@ -15,6 +15,9 @@ function rootjsShowControls(dir, filename, writeable) {
 
 function rootjsBindControlEvents() {
 	$('#content').on('click', '#simpleGUI_close', rootjsHideFileEditor);
+	window.onpopstate = function(e) {
+		rootjsHideFileEditor();
+	}
 }
 
 // returns true or false if the editor is in view or not
