@@ -64,9 +64,9 @@ function rootjsShowFileEditor(dir, filename) {
 
 
 				$('#content').append('<div id="files_rootjs_container"><div id="simpleGUI"></div></div>');
-				var fileURL = window.location.pathname + '/download?path=' + dir + '&files=' + filename;
+				var fileURL = window.location.pathname + '/download?path=' + encodeURIComponent(dir) + '&files=' + encodeURIComponent(filename);
 				if(window.OC.config.versionstring.indexOf("7") === 0) {
-                                	fileURL = window.location.pathname + window.location.search + '&path=' + dir + '&files=' + filename + "&download";
+                                	fileURL = window.location.pathname + window.location.search + '&path=' + encodeURIComponent(dir) + '&files=' + encodeURIComponent(filename) + "&download";
 	                        }
 				$('#simpleGUI').attr('files', fileURL);
 
@@ -136,9 +136,9 @@ function rootjsShowFileEditor(dir, filename) {
 
 						$('#content').append('<div id="files_rootjs_container"><div id="simpleGUI"></div></div>');
 						//var fileURL = fileDownloadPath(dir, filename);
-						var fileURL = OC.filePath('files_rootjs', 'ajax', 'loadfile.php') + "?file=" + filename + "&dir=" + dir
+						var fileURL = OC.filePath('files_rootjs', 'ajax', 'loadfile.php') + "?file=" + encodeURIComponent(filename) + "&dir=" + encodeURIComponent(dir);
 						if ($('#isPublic').val()){
-							fileURL = window.location.pathname + '/download?path=' + dir + '&files=' + filename;
+							fileURL = window.location.pathname + '/download?path=' + encodeURIComponent(dir) + '&files=' + encodeURIComponent(filename);
 						}
 						$('#simpleGUI').attr('files', fileURL);
 
