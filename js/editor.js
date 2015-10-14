@@ -35,10 +35,11 @@ function rootjsHideFileEditor() {
 		window.FileList.reload();
 	}
 	// Fade out editor
-	$('#files_rootjs_container, #simpleGUIcontrols').remove();
+	$('#editor_container').remove();
 	// Reset document title
 	document.title = $('body').attr('old_title');
 	FileList.setViewerMode(false);
+	FileList._setCurrentDir(FileList.getCurrentDirectory(), true);
 	$('#content table').show();
 	is_editor_shown = false;
 }
@@ -208,7 +209,9 @@ $(document).ready(function () {
                 OCA.Files.fileActions.register('application/x-root', 'Edit', OC.PERMISSION_READ, '', function (filename) {
                         rootjsShowFileEditor(FileList.getCurrentDirectory(), filename);
                 });
-		rootjsBindControlEvents();
+        FileActions.editorStatusHandle = function() { return rootjsEditorIsShown(); };
+        FileActions.editorCloseHandle = function() { rootjsHideFileEditor(); };
+
 	}
 	
 });
