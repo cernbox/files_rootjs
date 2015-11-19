@@ -60,7 +60,7 @@ function getFileURLByLoadType(loadType, isPublic, arg1, arg2) {
 		if(isPublic) {
 			return (window.location.pathname + '/download?path=' + encodeURIComponent(arg2) + '&files=' + encodeURIComponent(arg1));
 		} else {
-			return OC.filePath('files_rootjs', 'ajax', 'loadfile.php') + "?file=" + encodeURIComponent(arg2) + "&dir=" + encodeURIComponent(arg1);
+			return OC.filePath('files_rootjs', 'ajax', 'loadfile.php') + "?file=" + encodeURIComponent(arg1) + "&dir=" + encodeURIComponent(arg2);
 		}
 	} else if(loadType == 'loadpublicfile'){
 		return OC.filePath('files_rootjs', 'ajax', 'loadpublicfile.php') + "?token=" + arg1;
