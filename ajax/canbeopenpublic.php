@@ -9,7 +9,7 @@ if(!empty($token)) {
 	
 	\OC\Files\Filesystem::init($owner, '/' . $owner . '/files');
 	
-	$path = '/' . \OC\FIles\Filesystem::getPath($linkItem['file_source']);
+	$path = '/' . \OC\Files\Filesystem::getPath($linkItem['file_source']);
 	
 	$maxsize = \OCP\Config::getSystemValue("max_size_root_file", 4194304); // default of 4MB
 	$size = \OC\Files\Filesystem::filesize($path);
