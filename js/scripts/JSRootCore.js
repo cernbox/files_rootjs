@@ -10,36 +10,36 @@
       var dir = "scripts", ext = "";
       var scripts = document.getElementsByTagName('script');
       for (var n = 0; n < scripts.length; ++n) {
-         if (scripts[n]['type'] != 'text/javascript') continue;
+         //if (scripts[n]['type'] != 'text/javascript') continue;
          var src = scripts[n]['src'];
          if ((src == null) || (src.length == 0)) continue;
-         var pos = src.indexOf("scripts/JSRootCore.");
+         var pos = src.indexOf("js/scripts/JSRootCore.");
          if (pos>=0) {
             dir = src.substr(0, pos+8);
-            if (src.indexOf("scripts/JSRootCore.min.js")==pos) ext = ".min";
+            if (src.indexOf("js/scripts/JSRootCore.min.js")==pos) ext = ".min";
             break;
          }
       }
 
       var paths = {
-            'd3'                   : dir+'d3.v3.min',
-            'jquery'               : dir+'jquery.min',
-            'jquery-ui'            : dir+'jquery-ui.min',
-            'touch-punch'          : dir+'touch-punch.min',
-            'rawinflate'           : dir+'rawinflate'+ext,
+            'd3'                   : dir+'js/d3.v3.min',
+            'jquery'               : dir+'js/jquery.min',
+            'jquery-ui'            : dir+'js/jquery-ui.min',
+            'touch-punch'          : dir+'js/touch-punch.min',
+            'rawinflate'           : dir+'js/rawinflate'+ext,
             'MathJax'              : 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG&amp;delayStartupUntil=configured',
-            'saveSvgAsPng'         : dir+'saveSvgAsPng'+ext,
-            'THREE'                : dir+'three'+ext,
-            'three.extra'          : dir+'three.extra'+ext,
-            'THREE_ALL'            : dir+'jquery.mousewheel'+ext,
-            'JSRootCore'           : dir+'JSRootCore'+ext,
-            'JSRootMath'           : dir+'JSRootMath'+ext,
-            'JSRootInterface'      : dir+'JSRootInterface'+ext,
-            'JSRootIOEvolution'    : dir+'JSRootIOEvolution'+ext,
-            'JSRootPainter'        : dir+'JSRootPainter'+ext,
-            'JSRootPainter.more'   : dir+'JSRootPainter.more'+ext,
-            'JSRootPainter.jquery' : dir+'JSRootPainter.jquery'+ext,
-            'JSRoot3DPainter'      : dir+'JSRoot3DPainter'+ext
+            'saveSvgAsPng'         : dir+'js/saveSvgAsPng'+ext,
+            'THREE'                : dir+'js/three'+ext,
+            'three.extra'          : dir+'js/three.extra'+ext,
+            'THREE_ALL'            : dir+'js/jquery.mousewheel'+ext,
+            'JSRootCore'           : dir+'js/JSRootCore'+ext,
+            'JSRootMath'           : dir+'js/JSRootMath'+ext,
+            'JSRootInterface'      : dir+'js/JSRootInterface'+ext,
+            'JSRootIOEvolution'    : dir+'js/JSRootIOEvolution'+ext,
+            'JSRootPainter'        : dir+'js/JSRootPainter'+ext,
+            'JSRootPainter.more'   : dir+'js/JSRootPainter.more'+ext,
+            'JSRootPainter.jquery' : dir+'js/JSRootPainter.jquery'+ext,
+            'JSRoot3DPainter'      : dir+'js/JSRoot3DPainter'+ext
          };
 
       // check if modules are already loaded
@@ -563,7 +563,7 @@
       if (filename.indexOf("$$$")==0) {
          isrootjs = true;
          filename = filename.slice(3);
-         if ((filename.indexOf("style/")==0) && JSROOT.source_min &&
+         if ((filename.indexOf("css/")==0) && JSROOT.source_min &&
              (filename.lastIndexOf('.css')==filename.length-3) &&
              (filename.indexOf('.min.css')<0))
             filename = filename.slice(0, filename.length-4) + '.min.css';
@@ -573,7 +573,7 @@
       if (isstyle) {
          var styles = document.getElementsByTagName('link');
          for (var n = 0; n < styles.length; ++n) {
-            if ((styles[n]['type'] != 'text/css') || (styles[n]['rel'] != 'stylesheet')) continue;
+            if (/*(styles[n]['type'] != 'text/css') || */(styles[n]['rel'] != 'stylesheet')) continue;
 
             var href = styles[n]['href'];
             if ((href == null) || (href.length == 0)) continue;
@@ -585,7 +585,7 @@
          var scripts = document.getElementsByTagName('script');
 
          for (var n = 0; n < scripts.length; ++n) {
-            if (scripts[n]['type'] != 'text/javascript') continue;
+            //if (scripts[n]['type'] != 'text/javascript') continue;
 
             var src = scripts[n]['src'];
             if ((src == null) || (src.length == 0)) continue;
@@ -677,8 +677,8 @@
       var modules = [];  // modules used for require.js
 
       if (kind.indexOf('io;')>=0) {
-         mainfiles += "$$$scripts/rawinflate" + ext + ".js;" +
-                      "$$$scripts/JSRootIOEvolution" + ext + ".js;";
+         mainfiles += "$$$js/scripts/rawinflate" + ext + ".js;" +
+                      "$$$js/scripts/JSRootIOEvolution" + ext + ".js;";
          modules.push('JSRootIOEvolution');
       }
 
@@ -688,54 +688,54 @@
                jsroot.console('Reuse existing d3.js ' + d3.version + ", required 3.4.10", debugout);
                jsroot['_test_d3_'] = 1;
             } else {
-               mainfiles += '$$$scripts/d3.v3.min.js;';
+               mainfiles += '$$$js/scripts/d3.v3.min.js;';
                jsroot['_test_d3_'] = 2;
             }
          }
          modules.push('JSRootPainter');
-         mainfiles += '$$$scripts/JSRootPainter' + ext + ".js;";
-         extrafiles += '$$$style/JSRootPainter' + ext + '.css;';
+         mainfiles += '$$$js/scripts/JSRootPainter' + ext + ".js;";
+         extrafiles += '$$$css/JSRootPainter' + ext + '.css;';
       }
 
       if (kind.indexOf('savepng;')>=0) {
          modules.push('saveSvgAsPng');
-         mainfiles += '$$$scripts/saveSvgAsPng' + ext + ".js;";
+         mainfiles += '$$$js/scripts/saveSvgAsPng' + ext + ".js;";
       }
 
       if (kind.indexOf('jq;')>=0) need_jquery = true;
 
       if (kind.indexOf('math;')>=0)  {
-         mainfiles += '$$$scripts/JSRootMath' + ext + ".js;";
+         mainfiles += '$$$js/scripts/JSRootMath' + ext + ".js;";
          modules.push('JSRootMath');
       }
 
       if (kind.indexOf('more2d;')>=0) {
-         mainfiles += '$$$scripts/JSRootPainter.more' + ext + ".js;";
+         mainfiles += '$$$js/scripts/JSRootPainter.more' + ext + ".js;";
          modules.push('JSRootPainter.more');
       }
 
       if (kind.indexOf('jq2d;')>=0) {
-         mainfiles += '$$$scripts/JSRootPainter.jquery' + ext + ".js;";
+         mainfiles += '$$$js/scripts/JSRootPainter.jquery' + ext + ".js;";
          modules.push('JSRootPainter.jquery');
          need_jquery = true;
       }
 
       if ((kind.indexOf("3d;")>=0) || (kind.indexOf("geom;")>=0)) {
-         mainfiles += "$$$scripts/three" + ext + ".js;" +
-                      "$$$scripts/three.extra" + ext + ".js;";
+         mainfiles += "$$$js/scripts/three" + ext + ".js;" +
+                      "$$$js/scripts/three.extra" + ext + ".js;";
          modules.push('THREE', "three.extra");
       }
 
       if (kind.indexOf("3d;")>=0) {
          need_jquery = true;
-         mainfiles += "$$$scripts/jquery.mousewheel" + ext + ".js;" +
-                      "$$$scripts/JSRoot3DPainter" + ext + ".js;";
+         mainfiles += "$$$js/scripts/jquery.mousewheel" + ext + ".js;" +
+                      "$$$js/scripts/JSRoot3DPainter" + ext + ".js;";
          modules.push('THREE_ALL', 'JSRoot3DPainter');
       }
 
       if (kind.indexOf("geom;")>=0) {
-         mainfiles += "$$$scripts/JSRootGeoPainter" + ext + ".js;";
-         extrafiles += "$$$style/JSRootGeoPainter" + ext + ".css;";
+         mainfiles += "$$$js/scripts/JSRootGeoPainter" + ext + ".js;";
+         extrafiles += "$$$css/JSRootGeoPainter" + ext + ".css;";
          modules.push('JSRootGeoPainter');
       }
 
@@ -750,8 +750,8 @@
 
       if (kind.indexOf("simple;")>=0) {
          need_jquery = true;
-         mainfiles += '$$$scripts/JSRootInterface' + ext + ".js;";
-         extrafiles += '$$$style/JSRootInterface' + ext + '.css;';
+         mainfiles += '$$$js/scripts/JSRootInterface' + ext + ".js;";
+         extrafiles += '$$$css/JSRootInterface' + ext + '.css;';
          modules.push('JSRootInterface');
       }
 
@@ -761,16 +761,16 @@
          if (has_jq)
             jsroot.console('Reuse existing jQuery ' + jQuery.fn.jquery + ", required 2.1.1", debugout);
          else
-            lst_jq += "$$$scripts/jquery.min.js;";
+            lst_jq += "$$$js/scripts/jquery.min.js;";
          if (has_jq && typeof $.ui != 'undefined')
             jsroot.console('Reuse existing jQuery-ui ' + $.ui.version + ", required 1.11.0", debugout);
          else {
-            lst_jq += '$$$scripts/jquery-ui.min.js;';
-            extrafiles += '$$$style/jquery-ui' + ext + '.css;';
+            lst_jq += '$$$js/scripts/jquery-ui.min.js;';
+            extrafiles += '$$$css/jquery-ui' + ext + '.css;';
          }
 
          if (JSROOT.touches) {
-            lst_jq += '$$$scripts/touch-punch.min.js;';
+            lst_jq += '$$$js/scripts/touch-punch.min.js;';
             modules.push('touch-punch');
          }
 
@@ -1341,16 +1341,16 @@
       var scripts = document.getElementsByTagName('script');
 
       for (var n = 0; n < scripts.length; ++n) {
-         if (scripts[n]['type'] != 'text/javascript') continue;
+         //if (scripts[n]['type'] != 'text/javascript') continue;
 
          var src = scripts[n]['src'];
          if ((src == null) || (src.length == 0)) continue;
 
-         var pos = src.indexOf("scripts/JSRootCore.");
+         var pos = src.indexOf("js/scripts/JSRootCore.");
          if (pos<0) continue;
 
          JSROOT.source_dir = src.substr(0, pos);
-         JSROOT.source_min = src.indexOf("scripts/JSRootCore.min.js")>=0;
+         JSROOT.source_min = src.indexOf("js/scripts/JSRootCore.min.js")>=0;
 
          JSROOT.console("Set JSROOT.source_dir to " + JSROOT.source_dir);
 
