@@ -60,7 +60,7 @@ function getFileURLByLoadType(loadType, isPublic, arg1, arg2) {
 		if(isPublic) {
 			return (window.location.pathname + '/download?path=' + encodeURIComponent(arg2) + '&files=' + encodeURIComponent(arg1));
 		} else {
-			return OC.filePath('files_rootjs', 'ajax', 'loadfile.php') + "?file=" + encodeURIComponent(arg1) + "&dir=" + encodeURIComponent(arg2);
+			return OC.filePath('files_rootjs', 'ajax', 'loadfile.php') + "?file=" + encodeURIComponent(arg1) + "&dir=" + encodeURIComponent(arg2) + "&requesttoken=" + encodeURIComponent(oc_requesttoken);
 		}
 	} else if(loadType == 'loadpublicfile'){
 		return OC.filePath('files_rootjs', 'ajax', 'loadpublicfile.php') + "?token=" + arg1;
@@ -124,7 +124,7 @@ function openFileInEditor(result, loadType, filename, dir) {
 			left.append(banner);
 			loadButton.hide();
 			resetButton.hide();
-			loadButton.click();
+			loadButton.click(); // <-----------
 			layout.attr("style", "");
 			$("#simpleGUI #left-div>h1").hide();
 			$("#simpleGUI #left-div>p").hide();

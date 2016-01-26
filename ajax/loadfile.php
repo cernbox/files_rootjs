@@ -2,12 +2,14 @@
 
 // Check if we are a user
 OCP\JSON::checkLoggedIn();
+OCP\JSON::callCheck();
 
 // Set the session key for the file we are about to edit.
 $dir = isset($_GET['dir']) ? $_GET['dir'] : '';
 $filename = isset($_GET['file']) ? $_GET['file'] : '';
 if(!empty($filename))
 {
+	header('Content-Type: text/plain');
 	$path = $dir.'/'.$filename;
 	$filecontents = \OC\Files\Filesystem::file_get_contents($path);
 	echo $filecontents;
