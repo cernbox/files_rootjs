@@ -92,7 +92,7 @@
 
          document.body.onclick = function(e) { menu.remove(); }
 
-         $(document.body).append('<ul id="' + menuname + '">' + this.code + '</ul>');
+         $("#simpleGUI").parent().append('<ul id="' + menuname + '">' + this.code + '</ul>');
 
          $("#" + menuname)
             .css('left', event.clientX + window.pageXOffset)
