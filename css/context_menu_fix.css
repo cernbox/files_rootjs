@@ -1,4 +1,17 @@
+/* This stylesheet fix the root viewer context menu position and layout to fit with CERNBox cascade styles */
+
 #root_ctx_menu
 {
-	z-index: 200;
+        z-index: 200;
+        margin-top:-60px;
+}
+
+.ui-menu .ui-menu-item
+{
+        width:90%;
+}
+
+.ui-menu-icons .ui-menu-item
+{
+        padding-left:0;
 }

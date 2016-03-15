@@ -35,7 +35,7 @@ function rootjsHideFileEditor() {
 		window.FileList.reload();
 	}
 	// Fade out editor
-	$('#editor_container').remove();
+	$('#files_rootjs_container').remove();
 	// Reset document title
 	document.title = $('body').attr('old_title');
 	FileList.setViewerMode(false);
