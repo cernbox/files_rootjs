@@ -1,4 +1,4 @@
-function rootjsShowControls(dir, filename, writeable) {
+function rootjsShowControls(dir, filename, writeable, closeCallback) {
 	// Loads the control bar at the top.
 	OC.Breadcrumb.show(dir, filename, '#');
 	// Load the new toolbar.
@@ -6,6 +6,8 @@ function rootjsShowControls(dir, filename, writeable) {
 	editorbarhtml += '<button id="simpleGUI_close" class="icon-close svg"></button>';
 	editorbarhtml += '</div>';
 
+	rootjsBindControlEvents(closeCallback);
+	
 	$('#controls').append(editorbarhtml);
 	$('#simpleGUIcontrols').show();
 	if (!OC.Util.hasSVGSupport()) {
@@ -13,8 +15,8 @@ function rootjsShowControls(dir, filename, writeable) {
 	}
 }
 
-function rootjsBindControlEvents() {
-	$('#content').on('click', '#simpleGUI_close', rootjsHideFileEditor);
+function rootjsBindControlEvents(closeCallback) {
+	$('#content').on('click', '#simpleGUI_close', function() { rootjsHideFileEditor(); if(closeCallback) { closeCallback(); }});
 	window.onpopstate = function(e) {
 		rootjsHideFileEditor();
 	}
@@ -42,6 +44,7 @@ function rootjsHideFileEditor() {
 	FileList._setCurrentDir(FileList.getCurrentDirectory(), true);
 	$('#content table').show();
 	is_editor_shown = false;
+	$('#simpleGUIcontrols').remove();
 }
 function rootjstextEditorOnChangeDirectory(ev){
 	// if the directory is changed, it is usually due to browser back
@@ -69,7 +72,7 @@ function getFileURLByLoadType(loadType, isPublic, arg1, arg2) {
 	return null;
 }
 
-function openFileInEditor(result, loadType, filename, dir) {
+function openFileInEditor(result, loadType, filename, dir, closeCallback) {
 	
 	if (result.status === 'success') {
 		if (!rootjsEditorIsShown()) {
@@ -96,7 +99,7 @@ function openFileInEditor(result, loadType, filename, dir) {
 				$('#fileList').on('changeDirectory.texteditor', rootjstextEditorOnChangeDirectory);
 			}
 			// Show the control bar
-			rootjsShowControls(dir, filename, false);
+			rootjsShowControls(dir, filename, false, closeCallback);
 			// Update document title
 			$('body').attr('old_title', document.title);
 			document.title = filename + ' - ownCloud';
@@ -156,7 +159,7 @@ function rootjsShowFileEditor(dir, filename, mimetype) {
 					// Before trying to open the root file, we check that the size is OK until we get Byte-Range support
 					var sizeURL = OC.filePath('files_rootjs', 'ajax', 'canbeopenpublic.php') + "?token=" + filename;
 					$.get(sizeURL).done(function(result){
-						openFileInEditor(result, 'loadpublicfile', filename, dir);
+						openFileInEditor(result, 'loadpublicfile', filename, dir, function() { window.location.reload(); });
 					});
 				} else {
 					if (!rootjsEditorIsShown()) {
