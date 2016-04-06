@@ -1,7 +1,7 @@
 <?php
 
 // Set the session key for the file we are about to edit.
-OCP\JSON::callCheck();
+//OCP\JSON::callCheck();
 
 $token = isset($_GET['token']) ? $_GET['token'] : '';
 if(!empty($token))
