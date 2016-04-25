@@ -17,9 +17,12 @@ function rootjsShowControls(dir, filename, writeable, closeCallback) {
 
 function rootjsBindControlEvents(closeCallback) {
 	$('#content').on('click', '#simpleGUI_close', function() { rootjsHideFileEditor(); if(closeCallback) { closeCallback(); }});
-	window.onpopstate = function(e) {
+	
+	// Handler for browser back button
+	// Some gui actions from the rootviewer trigger the pop state event, causing the editor to close while operating with it. Disabled by now...
+	/*window.onpopstate = function(e) {
 		rootjsHideFileEditor();
-	}
+	}*/
 }
 
 // returns true or false if the editor is in view or not
