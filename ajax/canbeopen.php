@@ -8,7 +8,7 @@ $filename = isset($_GET['file']) ? $_GET['file'] : '';
 if(!empty($filename))
 {
 	$path = $dir.'/'.$filename;
-	$maxsize = \OCP\Config::getSystemValue("max_size_root_file", 4194304); // default of 4MB
+	$maxsize = \OC::$server->getConfig()->getSystemValue("max_size_root_file", 4194304); // default of 4MB
 	$size = \OC\Files\Filesystem::filesize($path);
 	if($size > $maxsize) {
 		OCP\JSON::error(array('data' => array( 'message' => "The maximun file size for opening root files is $maxsize bytes.")));

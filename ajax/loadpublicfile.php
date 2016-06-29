@@ -6,13 +6,13 @@
 $token = isset($_GET['token']) ? $_GET['token'] : '';
 if(!empty($token))
 {
-	$linkItem = \OCP\Share::getShareByToken($token, false);
-	$owner = $linkItem['uid_owner'];
+	$linkItem = \OC::$server->getShareManager()->getShareByToken($token);
+	$owner = $linkItem->getShareOwner();
 	
 	\OC\Files\Filesystem::tearDown();
 	\OC\Files\Filesystem::init($owner, '/' . $owner . '/files');
 	
-	$path = '/' . \OC\Files\Filesystem::getPath($linkItem['file_source']);
+	$path = '/' . \OC\Files\Filesystem::getPath($linkItem->getNodeId());
 
 	$filecontents = \OC\Files\Filesystem::file_get_contents($path);
 	echo $filecontents;
