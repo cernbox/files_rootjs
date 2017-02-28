@@ -1,5 +1,6 @@
 /* Interface stylesheet for Javascript ROOT Web Page. */
 
+/*
 * { padding: 0; margin: 0; }
 * html, body { height: 100%; }
 
@@ -20,6 +21,7 @@ body { margin: 1px; }
 textarea { font-size: 100%;}
 
 p { margin-top: 5px; margin-bottom: 5px; }
+*/
 
 #left-div { left: 1px; width: 300px; padding: 5px; overflow: auto; }
 
